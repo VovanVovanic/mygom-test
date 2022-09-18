@@ -7,6 +7,7 @@ import { useValidator } from '../../utils/hooks'
 import { dataHandler } from '../../utils/utils'
 import { GroupChoices } from '../Group'
 import { DataType, ItemType } from '../../utils/types'
+import { Message } from '../Message'
 
 interface IDropdown {
     data: any
@@ -17,6 +18,7 @@ export const Dropdown: React.FC<IDropdown> = ({ data, theme }) => {
     const [group, setGroup] = useState<boolean>(false)
     const [groupBy, setGroupBy] = useState<string | number>("")
     const [choices, setChoices] = useState<DataType>([])
+    const [message, setMessage] = useState<string | null>(null)
 
     const { dataReduced, keys, flatArray, error } = useValidator(data)
     const dataProceeded = !error && dataHandler(data, flatArray, dataReduced, keys, theme, group, groupBy)
@@ -33,7 +35,7 @@ export const Dropdown: React.FC<IDropdown> = ({ data, theme }) => {
         let res = item
         const isDuplicate = choices.some((el) => el[theme] === item) || choices.some((el) => el === item)
         if (isDuplicate) {
-            console.log(`You've already chosen this ${theme}`)
+            setMessage(`You've already chosen this ${theme}`)
             return
         }
         if (dataReduced) {
@@ -54,18 +56,23 @@ export const Dropdown: React.FC<IDropdown> = ({ data, theme }) => {
     }
 
     return (
-        <div className={classes.dropdownWrapper}>
-            <Choices data={choices} theme={theme} onRemove={removeHandler} />
-            <GroupChoices groups={groupsArr} setGroupBy={setGroupBy} setGroup={setGroup} />
-            <div className={classes.dropdown} >
-                <span className={classes.text}> {`Choose your ${theme}`}</span>
-                <div className={classes.arrowBox} onClick={onOpen}>
-                    <Arrow className={cls.join(' ')} />
+        <>
+            {!message ? <div className={classes.dropdownWrapper}>
+                <Choices data={choices} theme={theme} onRemove={removeHandler} />
+                <GroupChoices groups={groupsArr} setGroupBy={setGroupBy} setGroup={setGroup} />
+                <div className={classes.dropdown} >
+                    <span className={classes.text}> {`Choose your ${theme}`}</span>
+                    <div className={classes.arrowBox} onClick={onOpen}>
+                        <Arrow className={cls.join(' ')} />
+                    </div>
                 </div>
-            </div>
-            {!error && dataProceeded ?
-                <List open={open} data={dataProceeded} group={group} groupBy={groupBy} setItem={duplicatesChecker} /> :
-                <div>Render Error</div>}
-        </div>
+                {dataProceeded ?
+                    <List open={open} data={dataProceeded} group={group} groupBy={groupBy} setItem={duplicatesChecker} /> :
+                    <></>
+                }
+            </div > :
+                <Message message={message} setMessage={setMessage} />
+            }
+        </>
     )
 }

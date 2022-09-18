@@ -24,7 +24,6 @@ export const Choices:React.FC<IChoices> = ({data, theme, onRemove}) => {
   }, [data])
 
   const removeHandler = (item: ItemType) => {
-    console.log(item, "fdfgfgdfg")
     onRemove(item)
   }
 
