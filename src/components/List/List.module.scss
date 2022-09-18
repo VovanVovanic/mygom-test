@@ -1,0 +1,62 @@
+.list {
+  position: absolute;
+  top: 100%;
+  width: 450px;
+  margin: 10px 0 0 0;
+  padding: 0;
+  opacity: 1;
+  visibility: visible;
+  transition: all .7s ease-out;
+  max-height: 400px;
+  overflow: overlay;
+  .groupName {
+    padding: '10px 0';
+    color: grey;
+    height: 20px
+  }
+  .group{
+      margin: 0;
+      padding: 0;
+  }
+  .item {
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 6px;
+    cursor: pointer;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px,
+      rgba(0, 0, 0, 0.3) 0px 3px 7px -3px;
+    position: relative;
+    &:hover{
+     background: linear-gradient(99.6deg, rgb(112, 128, 152) 10.6%, rgb(242, 227, 234) 32.9%, rgb(234, 202, 213) 52.7%, rgb(220, 227, 239) 72.8%, rgb(185, 205, 227) 81.1%, rgb(154, 180, 212) 102.4%);
+      background-size: 400% 400%;
+      animation: gradient 10s ease infinite;
+    }
+  }
+  .chosen.item{
+    background: #007FFF;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.listActive {
+  opacity: 0;
+  visibility: hidden;
+
+}
+.list::-webkit-scrollbar {
+  display: none
+}

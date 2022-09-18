@@ -1,0 +1,38 @@
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  position: relative;
+.dropdown {
+  width: 450px;
+  border: 1px solid black;
+  border-radius: 5px;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0;
+  cursor: pointer;
+  .arrowBox {
+    border-left: 1px solid black;
+    background: #C5C6D0;
+    display: flex;
+    padding: 0 20px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    align-self: stretch;
+    .arrow {
+      width: 20px;
+      height: 20px;
+      transform: rotate(360deg);
+      transition: 0.7s
+    }
+
+    .arrowRotated.arrow {
+      transform: rotate(180deg);
+      transition: 0.7s
+    }
+  }
+}
+}
