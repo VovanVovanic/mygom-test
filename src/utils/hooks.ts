@@ -1,5 +1,6 @@
 import {useEffect, useReducer } from "react"
 import { reducer } from "./reducer"
+import { ArrayObjectType, FlatArrayType } from "./types"
 
 const init = {
   error: false,
@@ -9,15 +10,15 @@ const init = {
 }
 export type State = {
   error: boolean
-  keys: Array<string> | Array<number>
-  flatArray: Array<string> | Array<number> 
-  dataReduced: Array<Object>
+  keys: FlatArrayType
+  flatArray: FlatArrayType 
+  dataReduced: ArrayObjectType 
 }
 export type Action =
   | { type: 'error', payload: boolean }
-  | { type: 'keys', payload: Array<string> | Array<number> }
-  | { type: 'flat', payload: Array<string> | Array<number> }
-  | { type: 'reduced', payload: Array<Object> };
+  | { type: 'keys', payload: FlatArrayType }
+  | { type: 'flat', payload: FlatArrayType }
+  | { type: 'reduced', payload: ArrayObjectType  };
 
 
 export const useValidator = (data: any): State => {

@@ -1,13 +1,13 @@
 .list {
   position: absolute;
   top: 100%;
-  width: 450px;
+  width: 250px;
   margin: 10px 0 0 0;
   padding: 0;
-  opacity: 1;
-  visibility: visible;
+  opacity: 0;
+  visibility: none;
   transition: all .7s ease-out;
-  max-height: 400px;
+  max-height: 300px;
   overflow: overlay;
   .groupName {
     padding: '10px 0';
@@ -53,8 +53,8 @@
 }
 
 .listActive {
-  opacity: 0;
-  visibility: hidden;
+  opacity: 1;
+  visibility: visible;
 
 }
 .list::-webkit-scrollbar {
