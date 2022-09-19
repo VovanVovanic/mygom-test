@@ -9,16 +9,17 @@ interface IChoices {
   onRemove: (item:ItemType) => void
 }
 export const Choices:React.FC<IChoices> = ({data, theme, onRemove}) => {
-  const[elements, setElements] = useState<DataType>([])
-  
+  const [elements, setElements] = useState<DataType>([])
+
   const elemHandler = () => {
-    if (typeof (data[0] === 'object')) {
+    if (typeof (data[0]) === 'object') {
       return data.map((el: Object) => el[theme])
     }
     else {
       return data
     }
   }
+
   useEffect(() => {
     setElements(elemHandler())
   }, [data])

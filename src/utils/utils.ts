@@ -3,28 +3,32 @@ import { ArrayObjectType, FlatArrayType } from "./types"
 export const dataHandler = (
   rowData: ArrayObjectType,
   flatData: FlatArrayType,
-  dataReduced: ArrayObjectType,
+  dataReduced: Object | null,
   keys: FlatArrayType,
   theme: string,
   grouped: boolean,
-  groupBy: string | number 
+  groupBy: string | number,
 ) => {
   const isThemeExist = keys.length && keys.some((key: string | number) => key === theme)
+  if (flatData.length) {
+    const mapped = flatData.map((el: string | number) => el.toString())
+    return mapped
+  }
   
   if (!isThemeExist) {
     console.log(`The theme ${theme} is not exist in data`)
-    return
+    return 
   }
   if (grouped) {
-    const groupeArray = dataReduced[groupBy]
+    const groupeArray = dataReduced && dataReduced[groupBy]
     const groupedItems = groupeArray.reduce((acc:Object, el: string | number) => {
       acc[el] = rowData.filter((d: Object) => d[groupBy] === el)
-                .map((e)=>e[theme])
+        .map((e)=>e[theme])
       return acc
     }, {})
     return groupedItems
   }
-  return dataReduced[theme]
+  return dataReduced && dataReduced[theme]
   if (flatData.length) return flatData
 }
 

@@ -1,24 +1,24 @@
-import {useEffect, useReducer } from "react"
+import {Dispatch, useEffect, useReducer } from "react"
 import { reducer } from "./reducer"
 import { ArrayObjectType, FlatArrayType } from "./types"
 
-const init = {
+export const init = {
   error: false,
   keys: [],
-  dataReduced: [],
+  dataReduced: {},
   flatArray: []
 }
 export type State = {
   error: boolean
   keys: FlatArrayType
   flatArray: FlatArrayType 
-  dataReduced: ArrayObjectType 
+  dataReduced: Object |  null
 }
 export type Action =
   | { type: 'error', payload: boolean }
   | { type: 'keys', payload: FlatArrayType }
   | { type: 'flat', payload: FlatArrayType }
-  | { type: 'reduced', payload: ArrayObjectType  };
+  | { type: 'reduced', payload: Object | null };
 
 
 export const useValidator = (data: any): State => {
@@ -48,7 +48,7 @@ export const useValidator = (data: any): State => {
     }
 
     const isPrimitive = !error && data.every((el: any) => typeof (el) === 'number' || typeof (el) == 'string')
-    const isObj = !error && data.every((el: any) => typeof (el) === 'object')
+    const isObj = !error && data.every((el: Object) => typeof (el) === 'object')
 
     if (!isPrimitive && !isObj) {
       dispatch({ type: 'error', payload: true })
@@ -59,9 +59,11 @@ export const useValidator = (data: any): State => {
       dispatch({ type: 'flat', payload: [...data]})
     }
 
-    flatObjectCheck(data)
+    
 
-    if (!error) {
+    if (isObj) {
+      flatObjectCheck(data)
+
       const keys = Object.keys(data[0])
       const dataReduced = data.reduce((acc:Object, el:Object) => {
         Object.entries(el).forEach(([key, value]) => {
@@ -93,6 +95,6 @@ export const useValidator = (data: any): State => {
     error,
     keys,
     dataReduced,
-    flatArray
+    flatArray,
   } 
 }
