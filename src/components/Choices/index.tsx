@@ -31,14 +31,14 @@ export const Choices:React.FC<IChoices> = ({data, theme, onRemove}) => {
   return (
     <>
       {elements.length ?
-        <ul className={classes.choices}>
+        <ul className={classes.choices} data-testid= "choices-test">
           {elements.map((el: ItemType, i: number) => {
             return (
-              <li key={i} className={classes.item}>
+              <li key={i} className={classes.item} data-testid="for-choices">
                 <span>
                   {getClearLabel(el)}
                 </span>
-                <span className={classes.delete} onClick={()=>removeHandler(el)} />
+                <span className={classes.delete} onClick={() => removeHandler(el)} data-testid="for-remove" />
               </li>
             )
           })}

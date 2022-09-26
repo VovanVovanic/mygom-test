@@ -1,0 +1,13 @@
+
+.message{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+.button {
+  composes: btn from '../Group/Group.module.scss';
+  height: 20px;
+  width: 120px;
+}

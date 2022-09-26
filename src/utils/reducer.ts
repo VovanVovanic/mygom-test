@@ -1,3 +1,4 @@
+
 import { Action, State} from "./hooks";
 
 export const reducer = (state: State, action:Action) => {
@@ -10,7 +11,7 @@ export const reducer = (state: State, action:Action) => {
     case 'reduced':
       return { ...state, dataReduced: action.payload }
     case 'keys':
-      return {...state, keys: action.payload}
+      return { ...state, keys: action.payload }
     default:
       return state
   }

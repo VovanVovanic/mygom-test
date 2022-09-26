@@ -2,10 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { dataJSON } from './utils/data';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App data={JSON.parse(dataJSON)} />
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -21,6 +21,7 @@ export const Dropdown: React.FC<IDropdown> = ({ data, theme }) => {
     const [choices, setChoices] = useState<DataType>([])
     const [message, setMessage] = useState<string | null>(null)
     const [state, dispatch] = useReducer(reducer, init)
+   
 
     const { dataReduced, keys, flatArray, error } = useValidator(data)
     const dataProceeded = !error && dataHandler(data, flatArray, dataReduced, keys, theme, group, groupBy)
@@ -70,13 +71,13 @@ export const Dropdown: React.FC<IDropdown> = ({ data, theme }) => {
 
     return (
         <>
-            {!message ? <div className={classes.dropdownWrapper}>
+            {!message ? <div className={classes.dropdownWrapper} >
                 <Choices data={choices} theme={theme} onRemove={removeHandler} />
                 {!flatArray.length ? <GroupChoices groups={groupsArr} setGroupBy={setGroupBy} setGroup={setGroup} /> : ""}
                 <div className={classes.dropdown} >
                     <span className={classes.text}> {`Choose your ${theme}`}</span>
-                    <div className={classes.arrowBox} onClick={onOpenClose}>
-                        <Arrow className={cls.join(' ')} />
+                    <div className={classes.arrowBox} role={'button'}  onClick={onOpenClose}>
+                        <Arrow className={cls.join(' ')}  />
                     </div>
                 </div>
                 {dataProceeded ?

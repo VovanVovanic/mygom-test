@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { DataType, ItemType } from '../../utils/types'
 import { getClearLabel } from '../../utils/utils'
 import classes from './List.module.scss'
@@ -12,31 +12,33 @@ interface IList {
 }
 export const List: React.FC<IList> = ({ open, data, group, groupBy, setItem }) => {
 
-  const cls = [classes.list]
-  open && cls.push(classes.listActive)
-
+  console.log(data, "data")
+  const cls = [
+    classes.list
+  ]
+  if (open) {
+    cls.push(classes.listActive)
+  }
   const groupKey = Object.keys(data)
-
   const onItemSet = (item: ItemType) => {
-    console.log(item, "dddddd")
     setItem(item)
   }
   return (
-    <ul className={cls.join(" ")}>
+    <ul className={cls.join(' ')} data-testid = "dropdown-test">
       {group ?
-        <>
+        <div data-testid = "grouped-list">
           {
             groupKey.map((el, i) => {
               return (
                 <li key={i}>
                   <div className={classes.groupName}>{ getClearLabel(el) }</div>
-                  <ul className={classes.group}>
+                  <ul className={classes.group} >
                     {data[el].map((e: string | number, i:number) => {
                       return (
                         <li
                           key={i}
                           className={classes.item}
-                          onClick={()=>onItemSet(e)}
+                          onClick={() => onItemSet(e)}
                         >{getClearLabel(e) }</li>
                       )
                     })}
@@ -45,7 +47,7 @@ export const List: React.FC<IList> = ({ open, data, group, groupBy, setItem }) =
               )
             })
           }
-        </>
+        </div>
         :
         <>
           {
@@ -53,6 +55,7 @@ export const List: React.FC<IList> = ({ open, data, group, groupBy, setItem }) =
               return (
                 <li
                   key={i}
+                  data-testid="for-item"
                   onClick = {()=> onItemSet(el)}
                   className={classes.item}
                 >{getClearLabel(el)}</li>
